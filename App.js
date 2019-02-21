@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 import {Permissions, Location} from 'expo';
+import { FilterButton  } from './components/FilterButton';
 
 export default class App extends React.Component {
 
@@ -41,19 +42,20 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <FilterButton />
         <MapView style={styles.map}
           initialRegion={this.state.region}
           showsUserLocation={true}
           >
 
-          {<MapView.Marker
+          {/* <MapView.Marker
               coordinate={{
                 latitude:-16.700380,
                 longitude: -49.242091,
               }}
               title={'Home'}
               description={'Yuris home'}
-          />}
+          /> */}
 
           </MapView>
       </View>
@@ -73,9 +75,9 @@ const styles = StyleSheet.create({
   },
   map: {
     position: 'absolute',
-    top:80,
-    left: 10,
-    bottom: 200,
-    right: 10
+    top:50,
+    left: 0,
+    bottom: 50,
+    right: 0
   }
 });
