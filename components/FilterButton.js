@@ -7,6 +7,7 @@ import {
         TouchableOpacity
 } from 'react-native';
 
+
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -23,7 +24,7 @@ export const FilterButton = function(props){
             </View>
 
             <View style={styles.centerCol}>
-                < Text style={{fontFamily: 'sans-serif-thin', fontSize: 21, color: '#545454'}}>
+                < Text style={{fontFamily: 'lucida grande', fontSize: 21, color: '#545454'}}>
                 Where to?
                 </Text>
             </View>
@@ -45,7 +46,7 @@ container: {
     height: 60,
     top: 110,
     left: 20,
-    borderRadious: 2,
+    borderRadius: 2,
     backgroundColor: 'white',
     alignItems: 'center',
     shadowColor: '#000000',
@@ -59,7 +60,7 @@ leftCol: {
 },
 centerCol: {
     flex: 4,
-}
+},
 rightCol: {
     flex:1,
     borderLeftWidth: 1,
