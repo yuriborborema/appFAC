@@ -2,9 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView from 'react-native-maps';
 import {Permissions, Location} from 'expo';
-import { TextInput } from 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { FilterButton  } from './components/FilterButton';
 
 export default class App extends React.Component {
 
@@ -43,41 +41,32 @@ export default class App extends React.Component {
 
   render() {
     return (
-      //<View>
-      //<Text style={{flex:1}}> hi</Text>
-      
       <View style={styles.container}>
-      
+        <FilterButton />
         <MapView style={styles.map}
           initialRegion={this.state.region}
           showsUserLocation={true}
           >
 
-          {<MapView.Marker
+          {/* <MapView.Marker
               coordinate={{
                 latitude:-16.700380,
                 longitude: -49.242091,
               }}
               title={'Home'}
-              description={'Yuris  mhome'}
-          />}
+              description={'Yuris home'}
+          /> */}
 
           </MapView>
-          <View style={styles.textInputCont}>
-          <Ionicons name="md-search" size={25} style={{transform: [{ rotate: '90deg'}]}} />
-          <TextInput placeholder="Procure e acharás!"/>
-          <Icon name="filter" size={25}  />
-          </View>
       </View>
-      //</View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    top:0,
+      position: 'absolute',
+      top:0,
       left: 0,
       bottom: 0,
       right: 0,
@@ -86,27 +75,9 @@ const styles = StyleSheet.create({
   },
   map: {
     position: 'absolute',
-    top:0,
+    top:50,
     left: 0,
     bottom: 50,
     right: 0
-  },
-  textInputCont:{
-    flex:1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',    
-    bottom:500,
-    height:35,
-    width:250,
-    position: 'absolute',
-    backgroundColor: 'white',
-    shadowColor: '#000000' ,
-     elevation: 7,
-     shadowRadius: 5,
-     shadowOpacity: 1.0,
-     borderRadius: 20,
-    
-    
-
   }
 });
