@@ -6,7 +6,7 @@ import {Permissions, Location} from 'expo';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
-import {CreateStackNavigator} from 'react-navigation';
+import { Marker } from 'react-native-maps';
 
 export default class MapScreen extends React.Component {
 
@@ -14,17 +14,30 @@ export default class MapScreen extends React.Component {
   constructor(props){
     super(props);
 
-    var markers = [{
+    var markers1 = [
+      {
+        latlng:{
+          latitude:-16.700380,
+          longitude: -49.242091,
+        },
+        title:"Santa clara",
+        description:"fafafafa",
+      },
+      {
+        latlng:{
+          latitude:-16.701380,
+          longitude: -49.242491,
+        },
+        title:"Sao jose",
+        description:"mnmmnmn",
+      },
       
-    }];
-
-
-
-
+    
+    ];
 
     this.state = {
       region: null,
-      markers: 
+      markers: markers1,
 
     }
 
@@ -109,27 +122,19 @@ export default class MapScreen extends React.Component {
 
           >
 
-           <MapView.Marker
-                  coordinate={{
-                    latitude:-16.700380,
-                    longitude: -49.242091,
-                  }}
-                  
-                  image={require('../images/church.png')}>
-                      
-                  
-                  <MapView.Callout onPress={()=> {Alert.alert('fafa')}}>
-                      <View style={styles.calloutMarker}>
-                      <Icon name="heart" size={15} />
-                      </View>
-                    </MapView.Callout>
-            </MapView.Marker>
+          {this.state.markers.map(marker => (
+              <Marker
+                coordinate={marker.latlng}
+                title={marker.title}
+                description={marker.description}
+              />
+            ))}
 
           </MapView>
           <Callout>
             <View style={styles.textInputCont}>
             <Icon name="search" size={25} style={{transform: [{ rotate: '90deg'}]}} color="#ffe047" />
-            <TextInput placeholder="Procure e acharás !"/>         
+            <TextInput placeholder="Procure e acharás!"/>         
 
             </View>
           </Callout>
@@ -141,7 +146,10 @@ export default class MapScreen extends React.Component {
   }
 }
 
-/*<View style={styles.addChurch}>
+/*
+
+///////botao add igreja ////
+///<View style={styles.addChurch}>
           <Icon name="plus-circle" size={65} color="#ffe047" />
 
           </View>
@@ -160,8 +168,27 @@ export default class MapScreen extends React.Component {
     elevation: 7,
      shadowRadius: 10,
      shadowOpacity: 1.1,
+
     
   }
+
+  ///// um marker com imagem e callout custom
+
+  <MapView.Marker
+                  coordinate={{
+                    latitude:-16.700380,
+                    longitude: -49.242091,
+                  }}
+                  
+                  image={require('../images/church.png')}>
+                      
+                  
+                  <MapView.Callout onPress={()=> {Alert.alert('fafa')}}>
+                      <View style={styles.calloutMarker}>
+                      <Icon name="heart" size={15} />
+                      </View>
+                    </MapView.Callout>
+            </MapView.Marker>
 
           */
 
