@@ -7,49 +7,84 @@ import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import { Marker } from 'react-native-maps';
+import firebase from 'firebase';
 
 export default class MapScreen extends React.Component {
 
 
   constructor(props){
-    super(props);
+        super(props);
+        var markers1 = [
+          {
+            latlng:{
+              latitude:-16.700380,
+              longitude: -49.242091,
+            },
+            title:"Santa clara",
+            description:"fafafafa",
+          },
+          {
+            latlng:{
+              latitude:-16.701380,
+              longitude: -49.242491,
+            },
+            title:"Sao jose",
+            description:"mnmmnmn",
+          },          
+        
+        ];
+        this.state = {
+          region: null,
+          markers: markers1,
 
-    var markers1 = [
-      {
-        latlng:{
-          latitude:-16.700380,
-          longitude: -49.242091,
-        },
-        title:"Santa clara",
-        description:"fafafafa",
-      },
-      {
-        latlng:{
-          latitude:-16.701380,
-          longitude: -49.242491,
-        },
-        title:"Sao jose",
-        description:"mnmmnmn",
-      },
-      
-    
-    ];
-
-    this.state = {
-      region: null,
-      markers: markers1,
-
+        }
+        this._getLocationAsync();
     }
 
-    this._getLocationAsync();
+    componentWillMount(){
+      var config = {
+        apiKey: "AIzaSyCol2g7tuxtiIh9nrLMg88PQlNaQjMo2qk",
+        authDomain: "appfac-81c0e.firebaseapp.com",
+        databaseURL: "https://appfac-81c0e.firebaseio.com",
+        projectId: "appfac-81c0e",
+        storageBucket: "",
+        messagingSenderId: "567295223135"
+      };
+      firebase.initializeApp(config);
 
-  }
+      var id=1;
+
+      firebase.database().ref('church/'+id).set(
+        {
+          nome: "Comunidade Santa Clara",
+          matriz: false,
+          paroquia: "Paróquia São Francisco",
+          missas: true,
+          hormissas:{
+            sab: 19.3,
+            dom: 9
+          },
+          confissao:false,
+          horconfissao:false,
+          latlng:{
+            latitude:-16.700380,
+            longitude: -49.242091,
+          },
+
+        }
+      ).then(() => {
+        Alert.alert("conected!");
+      }).catch((error) => {
+        Alert.alert(error);
+      })
+    }
+
 
   static navigationOptions = {
-    tabBarIcon: ({ tintColor}) => (
-      <Icon name="globe"  size={25} style={{color: tintColor}} />
-    )
-  }
+      tabBarIcon: ({ tintColor}) => (
+        <Icon name="globe"  size={25} style={{color: tintColor}} />
+      )
+    }
 
 
   _getLocationAsync = async () => {
@@ -73,6 +108,8 @@ export default class MapScreen extends React.Component {
   }
 
   render() {
+
+    
     return (
       //<View>
       //<Text style={{flex:1}}> hi</Text>
@@ -122,13 +159,15 @@ export default class MapScreen extends React.Component {
 
           >
 
-          {this.state.markers.map(marker => (
+          
+            {this.state.markers.map(marker => (
               <Marker
                 coordinate={marker.latlng}
                 title={marker.title}
                 description={marker.description}
               />
             ))}
+          
 
           </MapView>
           <Callout>
@@ -189,6 +228,20 @@ export default class MapScreen extends React.Component {
                       </View>
                     </MapView.Callout>
             </MapView.Marker>
+
+
+
+  /////// inserting firebase
+  firebase.database().ref('users/002').set(
+        {
+          name: 'fafa',
+          age: 202
+        }
+      ).then(() => {
+        Alert.alert("conected!");
+      }).catch((error) => {
+        Alert.alert(error);
+      })
 
           */
 
