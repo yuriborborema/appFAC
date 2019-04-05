@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import MapView from 'react-native-maps';
+import {Callout} from 'react-native-maps';
 import {Permissions, Location} from 'expo';
 import { TextInput } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import {CreateStackNavigator} from 'react-navigation';
-
 
 export default class MapScreen extends React.Component {
 
@@ -13,15 +14,29 @@ export default class MapScreen extends React.Component {
   constructor(props){
     super(props);
 
+    var markers = [{
+      
+    }];
+
+
+
+
+
     this.state = {
       region: null,
+      markers: 
+
     }
 
     this._getLocationAsync();
 
   }
 
- 
+  static navigationOptions = {
+    tabBarIcon: ({ tintColor}) => (
+      <Icon name="globe"  size={25} style={{color: tintColor}} />
+    )
+  }
 
 
   _getLocationAsync = async () => {
@@ -95,34 +110,60 @@ export default class MapScreen extends React.Component {
           >
 
            <MapView.Marker
-              coordinate={{
-                latitude:-16.700380,
-                longitude: -49.242091,
-              }}
-              title={'Home '}
-              description={'Comunidade  Santa Clara'}
-              image={require('../images/church.png')}
-              
-          />
+                  coordinate={{
+                    latitude:-16.700380,
+                    longitude: -49.242091,
+                  }}
+                  
+                  image={require('../images/church.png')}>
+                      
+                  
+                  <MapView.Callout onPress={()=> {Alert.alert('fafa')}}>
+                      <View style={styles.calloutMarker}>
+                      <Icon name="heart" size={15} />
+                      </View>
+                    </MapView.Callout>
+            </MapView.Marker>
 
           </MapView>
+          <Callout>
+            <View style={styles.textInputCont}>
+            <Icon name="search" size={25} style={{transform: [{ rotate: '90deg'}]}} color="#ffe047" />
+            <TextInput placeholder="Procure e acharás !"/>         
 
-          <View style={styles.textInputCont}>
-          <Icon name="search" size={28} style={{transform: [{ rotate: '90deg'}]}} color="#ffe047" />
-          <TextInput placeholder="Procure e acharás !"/>
-          <Icon name="filter" size={28} color="#ffe047" />
+            </View>
+          </Callout>
 
-          </View>
-
-          <View style={styles.addChurch}>
-          <Icon name="plus-circle" size={65} color="#ffe047" />
-
-          </View>
+          
       </View>
       //</View>
     );
   }
 }
+
+/*<View style={styles.addChurch}>
+          <Icon name="plus-circle" size={65} color="#ffe047" />
+
+          </View>
+
+
+          addChurch:{
+    position: 'absolute',
+    bottom: 85,
+    right:35,
+    backgroundColor: 'white',
+    shadowColor: '#000000' ,
+    width: 100,
+    height: 100,
+    borderRadius: 100/2,
+    
+    elevation: 7,
+     shadowRadius: 10,
+     shadowOpacity: 1.1,
+    
+  }
+
+          */
 
 const styles = StyleSheet.create({
   container: {
@@ -145,10 +186,11 @@ const styles = StyleSheet.create({
     flex:1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',    
-    bottom:500,
+    bottom:450,
+    
     height:35,
     width:250,
-    position: 'absolute',
+    position: 'relative',
     backgroundColor: 'white',
     shadowColor: '#000000' ,
      elevation: 7,
@@ -156,19 +198,9 @@ const styles = StyleSheet.create({
      shadowOpacity: 1.0,
      borderRadius: 20,
   },
-  addChurch:{
-    position: 'absolute',
-    bottom: 85,
-    right:35,
-    backgroundColor: 'white',
-    shadowColor: '#000000' ,
-    width: 100,
-    height: 100,
-    borderRadius: 100/2,
-    
-    elevation: 7,
-     shadowRadius: 10,
-     shadowOpacity: 1.1,
-    
+  calloutMarker:{
+
   }
+
+  
 });
